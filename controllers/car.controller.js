@@ -1,4 +1,4 @@
-const { getCarDB, getCarOneDB } = require("../service/car.service");
+const { getCarDB, getCarOneDB, postCarDB } = require("../service/car.service");
 
 const getCar = (req, res) => {
     const data = getCarDB();
@@ -10,8 +10,14 @@ const getCarOne = (req, res) => {
     res.status(200).json(data);
 };
 const postCar = (req, res) => {
-    console.log(req);
-  res.status(200).json("создали новую машину");
+  const id = req.body.id;
+  const name = req.body.name;
+  const model = req.body.model;
+  const years = req.body.years;
+  const price = req.body.price;
+  const obj = {id: id, name: name, model: model, years: years, price: price}
+  const data = postCarDB(obj);
+  res.status(200).json(data);
 };
 const updateCar = (req, res) => {
   res.status(200).json("обновили машину");

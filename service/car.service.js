@@ -21,5 +21,19 @@ const getCarOneDB = (id) => {
     return data[id];
 };
 
+const postCarDB = (obj) => {
+  let data = jsonfile.readFileSync('./models/car.json', (err, obj) => {
+    if (err) {
+      console.error(err);
+      throw err;
+  };
+    fileObj.push(data);
+    jsonfile.writeFile('./models/car.json', obj, (err) => {
+      if (err) throw err;
+    });
+    return res.send(data);
+  });
+};
 
-module.exports = { getCarDB, getCarOneDB };
+
+module.exports = { getCarDB, getCarOneDB, postCarDB };
