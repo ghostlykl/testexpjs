@@ -1,4 +1,4 @@
-const { getCarDB, getCarOneDB, postCarDB } = require("../service/car.service");
+const { getCarDB, getCarOneDB, postCarDB, updateCarDB } = require("../service/car.service");
 
 const getCar = (req, res) => {
     const data = getCarDB();
@@ -10,18 +10,26 @@ const getCarOne = (req, res) => {
     res.status(200).json(data);
 };
 const postCar = (req, res) => {
-  const id = req.body.id;
-  const name = req.body.name;
-  const model = req.body.model;
-  const years = req.body.years;
-  const price = req.body.price;
-  const obj = {id: id, name: name, model: model, years: years, price: price}
-  const data = postCarDB(obj);
-  res.status(200).json(data);
+  const {name, model, years, price} = req.body;
+  let dataCar = {name, model, years, price};
+  try {
+  const ress = postCarDB(dataCar)
+  if(ress)
+  res.status(200).json('sozdali');
+  else
+  request.status(400).json('error');
+} catch (error) {
+  res.status(400).json(error);
+}
 };
+ 
 const updateCar = (req, res) => {
-  res.status(200).json("обновили машину");
+  const id = req.params.id;
+  const {name, model, years, price} = req.body;
+  let result = updateCarDB(name, model, years, price);
+  res.status(200).json(result);
 };
+
 const deleteCar = (req, res) => {
   res.status(200).json("удалили машину");
 };

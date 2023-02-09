@@ -22,18 +22,37 @@ const getCarOneDB = (id) => {
 };
 
 const postCarDB = (obj) => {
-  let data = jsonfile.readFileSync('./models/car.json', (err, obj) => {
+  let data = jsonfile.readFileSync("./models/car.json", (err, file) => {
     if (err) {
-      console.error(err);
-      throw err;
-  };
-    fileObj.push(data);
-    jsonfile.writeFile('./models/car.json', obj, (err) => {
-      if (err) throw err;
-    });
-    return res.send(data);
+        console.error(err);
+        throw err;
+    }   
+});
+  let arr = [ ...data];
+  arr.push(obj);
+  jsonfile.writeFile("./models/car.json", arr, (error) => {
+    if (error) {
+      console.error(error);
+      throw error;
+    }
   });
+  return true;
+};
+
+const updateCarDB = (id, name, model, years, price) => {
+  let data = jsonfile.readFileSync("./models/car.json", (error, file) => {
+    if (error) {
+      console.error(1, error);
+      throw "1";
+    };
+  });
+  let result = data[id];
+  result.name = name;
+  result.model = model;
+  result.years = years;
+  result.price = price;
+  return result;
 };
 
 
-module.exports = { getCarDB, getCarOneDB, postCarDB };
+module.exports = { getCarDB, getCarOneDB, postCarDB, updateCarDB };
