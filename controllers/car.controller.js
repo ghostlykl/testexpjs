@@ -1,4 +1,4 @@
-const { getCarDB, getCarOneDB, postCarDB, updateCarDB } = require("../service/car.service");
+const { getCarDB, getCarOneDB, postCarDB, updateCarDB, deleteCarDB } = require("../service/car.service");
 
 const getCar = (req, res) => {
     const data = getCarDB();
@@ -32,6 +32,9 @@ const updateCar = (req, res) => {
 
 const deleteCar = (req, res) => {
   res.status(200).json("удалили машину");
+  const id = req.params.id;
+  const data = deleteCarDB(id);
+  res.status(200).json(data);
 };
 
 module.exports = {

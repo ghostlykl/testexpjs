@@ -61,5 +61,29 @@ const updateCarDB = (id, name, model, years, price) => {
   return true;
 };
 
+const deleteCarDB = (id) => {
+  let data = jsonfile.readFileSync("./models/car.json", (err, obj) => {
+    if (error) {
+      console.error(1, error);
+      throw "1";
+    };
+  });
+  let result = data;
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].id == id) {
+        result.splice(i, 1);
+      }
+    }
 
-module.exports = { getCarDB, getCarOneDB, postCarDB, updateCarDB };
+    jsonfile.writeFile('./models/car.json', result, (error) => {
+      if (error) {
+        console.error(error);
+        throw error;
+      };
+    });
+    return true;
+  };
+
+
+
+module.exports = { getCarDB, getCarOneDB, postCarDB, updateCarDB, deleteCarDB };
