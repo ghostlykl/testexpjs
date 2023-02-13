@@ -51,7 +51,14 @@ const updateCarDB = (id, name, model, years, price) => {
   result.model = model;
   result.years = years;
   result.price = price;
-  return result;
+  
+  jsonfile.writeFile("./models/car.json", data, (error) => {
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+  });
+  return true;
 };
 
 

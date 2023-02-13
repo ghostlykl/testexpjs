@@ -25,8 +25,8 @@ const postCar = (req, res) => {
  
 const updateCar = (req, res) => {
   const id = req.params.id;
-  const {name, model, years, price} = req.body;
-  let result = updateCarDB(name, model, years, price);
+  const { name, model, years, price } = req.body;
+  let result = updateCarDB(id, name, model, years, price);
   res.status(200).json(result);
 };
 
